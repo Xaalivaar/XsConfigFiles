@@ -51,11 +51,15 @@ tiling_drag modifier titlebar
 # start a terminal
 bindsym $mod+Return exec alacritty
 
-# start a terminal
+# start browser
 bindsym $mod+b exec librewolf
 
+# start thunar
+bindsym $mod+n exec thunar
+
 # kill focused window
-bindsym $mod+Shift+q kill
+# bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 
 # start dmenu (a program launcher)
 # bindsym $mod+space exec --no-startup-id dmenu_run
@@ -232,10 +236,12 @@ exec --no-startup-id xcompmgr
 exec --no-startup-id pasystray
 
 # caps to esc
-exec --no-startup-id xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+# exec --no-startup-id xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+exec --no-startup-id /usr/bin/setxkbmap -option "caps:swapescape" 
+
 
 #adi1090x polybar themes and rofi scripts
-exec --no-startup-id ~/.config/polybar/colorblocks/scripts/pywal.sh ~/Downloads/Wallpapers/sakura.jpg
+exec --no-startup-id ~/.config/polybar/colorblocks/scripts/pywal.sh ~/Downloads/Wallpapers/'5 Wallpapers Per Second'/1.jpg
 
 # Set inner/outer gaps
 gaps inner 5

@@ -13,7 +13,8 @@ alias cl='clear'
 alias d='cd "$(find * -type d | fzf)"'
 alias ov='vi $(fzf)'
 alias ~='cd ~'
-export PATH=~/.local/bin:$PATH
+alias r='ranger'
+export PATH=/home/kuro/.local/bin:$PATH
 
 PS1='[\u@\h \W]\$ '
 
