@@ -1,0 +1,215 @@
+## sxhkdrc (preferred)
+
+# Terminal (alacritty)
+super + Return
+	bspterm
+
+# Terminal (floating)
+super + shift + Return
+	bspterm --float
+
+# Terminal (fullscreen)
+super + alt + Return
+	bspterm --full
+
+# Terminal (kitty)
+ctrl + alt + t
+	bspkitty
+
+# Rofi App Launcher
+alt + F1
+	rofi_launcher
+
+# Rofi Run
+alt + F2
+	rofi_runner
+
+# Rofi Menus/Applets
+super + {b,m,n,r,s,t,w,x}
+	{rofi_bluetooth,rofi_music,nmd,rofi_asroot,rofi_screenshot,rofi_themes,rofi_windows,rofi_powermenu}
+
+# Launch Apps
+super + shift + {f,w,e}
+	{thunar,firefox,geany}
+
+# Terminal Apps
+ctrl + alt + {v,r,h}
+	alacritty --config-file ~/.config/bspwm/alacritty/alacritty.toml -e {vim,ranger,htop}
+
+# Color Picker
+super + p
+	bspcolorpicker
+
+# Music
+ctrl + alt + m
+	bspmusic
+
+# Lockscreen
+ctrl + alt + l
+	betterlockscreen --lock
+
+# Take a screenshot
+Print
+	bspscreenshot --now
+
+# Take screenshot in 5 second
+alt + Print
+	bspscreenshot --in5
+
+# Take screenshot in 10 second
+shift + Print
+	bspscreenshot --in10
+
+# Take screenshot of active window
+ctrl + Print
+	bspscreenshot --win
+
+# Take screenshot of area
+super + Print
+	bspscreenshot --area
+
+# Brighness control
+XF86MonBrightness{Up,Down}
+	bspbrightness{ --inc, --dec}
+
+# Speaker Volume control
+XF86Audio{RaiseVolume,LowerVolume}
+	bspvolume{ --inc, --dec}
+
+# Mic Volume control
+XF86Audio{Mute,MicMute}
+	bspvolume{ --toggle, --toggle-mic}
+
+# Music control
+XF86Audio{Next,Prev,Play,Stop}
+	mpc {next,prev,toggle,stop}
+
+# Hide/Unhide Window
+super + shift + h
+	bspwinmask
+
+# Close App / Kill window (keep examples from distro)
+super + {_,shift + }c
+	bspc node -{c,k}
+
+ctrl + alt + Escape
+	xkill
+
+# Quit/Restart bspwm (use example mapping: super+alt+{q,r})
+super + alt + {q,r}
+	bspc {quit,wm -r}
+
+# Reload Keybindings
+super + Escape
+	pkill -USR1 -x sxhkd
+
+# Switch workspace (prev/next)
+ctrl + alt + {Left,Right}
+	bspc desktop -f {prev.local,next.local}
+
+# Switch workspace or Send focused Node to another workspace
+super + {_,shift + }{1-8}
+	bspc {desktop -f,node -d} '^{1-8}' '--follow'
+
+# Send focused Node to workspace directionally (keep original directional send)
+super + ctrl + shift + {Left,Right}
+	bspc node -d {prev,next} '--follow'
+
+# Focus / Swap using hjkl (from example)
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+# Move focus path jumps (parent/brother/first/second)
+super + {p,b,comma,period}
+	bspc node -f @{parent,brother,first,second}
+
+# Focus next/previous window in current desktop
+super + {_,shift + }c
+	bspc node -f {next,prev}.local.!hidden.window
+
+# Focus next/previous desktop in current monitor (brackets)
+super + bracket{left,right}
+	bspc desktop -f {prev,next}.local
+
+# Switch to last opened workspace / last node
+super + {Tab,grave}
+	bspc {node,desktop} -f last
+
+# Focus older/newer in focus history
+super + {o,i}
+	bspc wm -h off; \
+	bspc node {older,newer} -f; \
+	bspc wm -h on
+
+# Focus or send to the given desktop (use example numbering 1-9)
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
+
+# Preselect the direction (use hjkl)
+super + ctrl + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+# Preselect the ratio
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+
+# Cancel the preselection for the focused node
+super + ctrl + space
+	bspc node -p cancel
+
+# Cancel the preselection for the focused desktop
+super + ctrl + shift + space
+	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+# Move floating windows (use arrow mapping from original)
+super + alt + shift + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+# Expand windows (use example expand mapping)
+super + control + {Left,Right,Up,Down}
+	bspc node -z {left -20 0,right 20 0,top 0 -20,bottom 0 20}
+
+# Shrink windows (example contract mapping)
+super + alt + {Left,Right,Up,Down}
+	bspc node -z {left 20 0,right -20 0,top 0 20,bottom 0 -20}
+
+# Split horizontal, vertical or cancel
+super + {h,v,q}
+	bspc node -p {east,south,cancel}
+
+# Preselect the ratio (duplicate kept for convenience)
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+
+# Toggle Layout (Tiled/Monocle)
+super + l
+	bspc desktop -l next
+
+# Toggle Fullscreen
+super + f
+	bspc node -t "~"fullscreen
+
+# Toggle between floating & tiled (and pseudo-tiled)
+super + space
+	bspc node -t "~"{floating,tiled}
+
+super + shift + space
+	bspc node -t "~"{pseudo_tiled,tiled}
+
+# Set the node flags
+super + ctrl + {m,x,y,z}
+	bspc node -g {marked,locked,sticky,private}
+
+# Focus the node in given direction including floating windows (Alt+Tab style)
+alt + {_,shift + }Tab
+	bspc node -f {next.local,prev.local}
+
+# Send the newest marked node to the newest preselected node (from example)
+super + y
+	bspc node newest.marked.local -n newest.!automatic.local
+
+# Swap the current node and the biggest window (from example)
+super + g
+	bspc node -s biggest.window
+
+## EOF
