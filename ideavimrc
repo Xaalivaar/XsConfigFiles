@@ -1,9 +1,9 @@
 set scrolloff=10
-set linenumber
+set number
 set showmode
 set showcmd
 set visualbell
-set clipboard+=unnamed
+set clipboard+=unnamedplus
 
 set ignorecase
 set smartcase
