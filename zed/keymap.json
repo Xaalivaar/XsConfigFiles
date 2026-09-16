@@ -1,0 +1,262 @@
+// The following 21 lines are commented out by me.
+// // Zed keymap
+// //
+// // For information on binding keys, see the Zed
+// // documentation: https://zed.dev/docs/key-bindings
+// //
+// // To see the default key bindings run `zed: open default keymap`
+// // from the command palette.
+// [
+//   {
+//     "context": "Workspace",
+//     "bindings": {
+//       // "shift shift": "file_finder::Toggle"
+//     },
+//   },
+//   {
+//     "context": "Editor && vim_mode == insert",
+//     "bindings": {
+//       // "j k": "vim::NormalBefore"
+//     },
+//   },
+// ]
+
+[
+    // ============================================================
+    // Doom-style global leader bindings
+    // ============================================================
+    {
+        "context": "Editor && vim_mode == normal && !menu",
+        "bindings": {
+            "space": null,
+            // ----------------------------------------------------
+            // Files
+            // ----------------------------------------------------
+            "space f f": "file_finder::Toggle",
+            "space f s": "workspace::Save",
+            "space f S": "workspace::SaveAll",
+
+            // ----------------------------------------------------
+            // Project
+            // ----------------------------------------------------
+            "space p f": "file_finder::Toggle",
+            "space p p": "project_panel::ToggleFocus",
+            "space p s": "pane::DeploySearch",
+
+            // ----------------------------------------------------
+            // Buffers / tabs
+            // ----------------------------------------------------
+            "space b b": "tab_switcher::Toggle",
+            "space b k": "pane::CloseActiveItem",
+            "space b B": "tab_switcher::ToggleAll",
+            "space b n": "pane::ActivateNextItem",
+            "space b p": "pane::ActivatePreviousItem",
+            "space b l": "pane::AlternateFile",
+
+            // ----------------------------------------------------
+            // Search
+            // ----------------------------------------------------
+            "space s p": "pane::DeploySearch",
+            "space s s": "buffer_search::Deploy",
+
+            // ----------------------------------------------------
+            // Code / LSP
+            // ----------------------------------------------------
+            "space c a": "editor::ToggleCodeActions",
+            "space c r": "editor::Rename",
+            "space c f": "editor::Format",
+
+            // ----------------------------------------------------
+            // Diagnostics
+            // ----------------------------------------------------
+            "space c x": "diagnostics::Deploy",
+
+            // ----------------------------------------------------
+            // Git
+            // ----------------------------------------------------
+            "space g g": "git_panel::ToggleFocus",
+
+            // ----------------------------------------------------
+            // Open / panels
+            // ----------------------------------------------------
+            "space o p": "project_panel::ToggleFocus",
+            "space o t": "terminal_panel::ToggleFocus",
+
+            // ----------------------------------------------------
+            // Tasks
+            // ----------------------------------------------------
+            "space c c": "task::Spawn",
+            "space c C": "task::Rerun",
+
+            // ----------------------------------------------------
+            // Symbols
+            // ----------------------------------------------------
+            "space s i": "outline::Toggle",
+            "space s I": "project_symbols::Toggle",
+
+            // ----------------------------------------------------
+            // Doom SPC SPC / command palette
+            // ----------------------------------------------------
+            "space space": "command_palette::Toggle",
+        },
+    },
+
+    // ============================================================
+    // Window / pane bindings
+    // ============================================================
+    {
+        "context": "Editor && vim_mode == normal && !menu",
+        "bindings": {
+            "space w h": "workspace::ActivatePaneLeft",
+            "space w j": "workspace::ActivatePaneDown",
+            "space w k": "workspace::ActivatePaneUp",
+            "space w l": "workspace::ActivatePaneRight",
+
+            "space w H": "workspace::SwapPaneLeft",
+            "space w J": "workspace::SwapPaneDown",
+            "space w K": "workspace::SwapPaneUp",
+            "space w L": "workspace::SwapPaneRight",
+
+            "space w m": "workspace::ToggleEditorZoom",
+        },
+    },
+
+    // ============================================================
+    // Doom-ish insert escape
+    // ============================================================
+    {
+        "context": "Editor && vim_mode == insert",
+        "bindings": {
+            "j k": "vim::NormalBefore",
+        },
+    },
+
+    // ============================================================
+    // Keep Ctrl-w hjkl useful when a dock is focused
+    // ============================================================
+    {
+        "context": "Dock",
+        "bindings": {
+            "ctrl-w h": "workspace::ActivatePaneLeft",
+            "ctrl-w j": "workspace::ActivatePaneDown",
+            "ctrl-w k": "workspace::ActivatePaneUp",
+            "ctrl-w l": "workspace::ActivatePaneRight",
+        },
+    },
+
+    // ============================================================
+    // Major mode: LaTeX
+    // Doom analogy: SPC m ...
+    // ============================================================
+    {
+        "context": "Editor && vim_mode == normal && extension == tex",
+        "bindings": {
+            // Compile current .tex file
+            "space m c": [
+                "task::Spawn",
+                {
+                    "task_name": "LaTeX: build",
+                },
+            ],
+
+            // Clean LaTeX auxiliary files
+            "space m k": [
+                "task::Spawn",
+                {
+                    "task_name": "LaTeX: clean",
+                },
+            ],
+        },
+    },
+
+    // ============================================================
+    // Major mode: C
+    // ============================================================
+    {
+        "context": "Editor && vim_mode == normal && extension == c",
+        "bindings": {
+            // Build
+            "space m b": [
+                "task::Spawn",
+                {
+                    "task_name": "C: build current file",
+                },
+            ],
+
+            // Run
+            "space m r": [
+                "task::Spawn",
+                {
+                    "task_name": "C: run current file",
+                },
+            ],
+
+            // Format
+            "space m f": "editor::Format",
+        },
+    },
+
+    // ============================================================
+    // Major mode: Python
+    //
+    // We are using regular .py files with # %% cells rather than
+    // .ipynb notebooks.
+    // ============================================================
+    {
+        "context": "Editor && vim_mode == normal && extension == py",
+        "bindings": {
+            // Run current # %% cell and advance
+            "space m r": "repl::Run",
+
+            // Run current cell but stay where we are
+            "space m R": "repl::RunInPlace",
+
+            // Clear all inline REPL output
+            "space m c": "repl::ClearOutputs",
+
+            // Clear output belonging to current cell only
+            "space m C": "repl::ClearCurrentOutput",
+
+            // Show REPL sessions
+            "space m s": "repl::Sessions",
+
+            // Restart Python kernel
+            "space m k": "repl::Restart",
+
+            // Interrupt running code
+            "space m i": "repl::Interrupt",
+
+            // Format Python source
+            "space m f": "editor::Format",
+        },
+    },
+
+    // ============================================================
+    // Major mode: Markdown
+    //
+    // Markdown is primarily prose/notes for this setup, but fenced
+    // Python blocks can still be executed through Zed's REPL.
+    // ============================================================
+    {
+        "context": "Editor && vim_mode == normal && extension == md",
+        "bindings": {
+            // Markdown preview
+            "space m p": "markdown::OpenPreview",
+
+            // Side-by-side Markdown preview
+            "space m P": "markdown::OpenPreviewToTheSide",
+
+            // Run current executable fenced block / selection
+            "space m r": "repl::Run",
+
+            // Run without advancing
+            "space m R": "repl::RunInPlace",
+
+            // Clear inline output
+            "space m c": "repl::ClearOutputs",
+
+            // Format Markdown manually
+            "space m f": "editor::Format",
+        },
+    },
+]
